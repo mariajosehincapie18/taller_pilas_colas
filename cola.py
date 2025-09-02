@@ -29,7 +29,7 @@ class Queue:
      return self.__items[0]
 
   def __str__(self):
-    return '--'.join(map(str,self.__items))
+    return '\n'.join(map(str,self.__items))
 
   def generate(self,num, min, max):
    for i in range(0,num):
