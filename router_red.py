@@ -14,7 +14,7 @@ class Router:
         self.memory_limit = memory_limit
 
     def router(self, nuevo_paquete):
-        if self.memory_limit == self.cola.len():
+        if  self.cola.len() >= self.memory_limit:
             self.cola.dequeue()
             self.cola.enqueue(nuevo_paquete)
         else:
@@ -26,18 +26,52 @@ class Router:
         if self.cola.is_empty():
             self.cola.enqueue(nuevo_paquete)
             return True
-        else:
-            while self.cola.len() > 0:
-                actual = self.cola.dequeue()
-                cola_aux.enqueue(actual)
-                if nuevo_paquete == actual:
-                    return False
-                else:
-                    self.router(nuevo_paquete)
-                
+        
+        duplicado = False
+        
+        while self.cola.len() > 0:
+            actual = self.cola.dequeue()
+            if (nuevo_paquete.sourse == actual.sourse and
+                nuevo_paquete.destination == actual.destination and
+                nuevo_paquete.timestamp == actual.timestamp):
+                duplicado = True
+            cola_aux.enqueue(actual)
             
-            while cola_aux.len > 0:
-                self.cola.enqueue(cola_aux.dequeue())
+            
+        while cola_aux.len() > 0:
+            self.cola.enqueue(cola_aux.dequeue())
+
+
+        if duplicado:
+            return False
+        else:
+            self.router(nuevo_paquete)
+            return True
+
+
+
+    def forwardpacket(self):
+        if self.cola.is_empty():
+            return []
+        else:
+            paquete = self.cola.dequeue() #preguntarle a la profe si con first o dequeue
+            return [paquete.sourse,paquete.destination,paquete.timestamp]
+        
+    def in_getcount(self, des, startime, endtime, cont = 0):
+        cola_aux = Queue()
+        while not self.cola.is_empty():
+            actual = self.cola.dequeue()
+            cola_aux.enqueue(actual)
+
+            if (actual.destination == des and  startime <= actual.timestamp  <= endtime):
+                cont += 1
+      
+        
+        while cola_aux.len() > 0:
+            self.cola.enqueue(cola_aux.dequeue())
+
+
+        return cont
 
 
 
@@ -73,9 +107,15 @@ rou.router(paquete_7)
 rou.router(paquete_8)
 print("Despues: ","\n",rou.cola)
 
-rou.boolean_add(9,10,11)
-print(rou.cola)
+print(rou.boolean_add(8,2,18))
 
+print("Despues de bool: ","\n",rou.cola)
 
+print(rou.boolean_add(9,1,19))
+print("Despues de bool: ","\n",rou.cola)
 
+print(rou.forwardpacket())
+print("Despues de forward: ","\n",rou.cola)
+
+print(rou.in_getcount(1,15,19))
 
