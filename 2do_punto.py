@@ -13,7 +13,7 @@ def pila_de_cola(pila_principal):
             actual = sub_pila.dequeue()
             if actual % 2 == 0:
                 entero = actual
-        enteros.push(entero)
+                enteros.push(entero)
 
     return enteros
 
@@ -22,13 +22,13 @@ def pila_de_cola(pila_principal):
 pila_principal = Stack()
 
 cola_1 = Queue()
-cola_1.enqueue(1)
 cola_1.enqueue(2)
+cola_1.enqueue(4)
 cola_1.enqueue(3)
 
 cola_2 = Queue()
 cola_2.enqueue(4)
-cola_2.enqueue(5)
+cola_2.enqueue(10)
 cola_2.enqueue(6)
 
 cola_3 = Queue()
