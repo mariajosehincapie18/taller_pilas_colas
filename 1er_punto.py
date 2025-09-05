@@ -48,22 +48,22 @@ class Router:
             self.router(nuevo_paquete)
             return True
 
-
+          
 
     def forwardpacket(self):
         if self.cola.is_empty():
             return []
         else:
-            paquete = self.cola.dequeue() #preguntarle a la profe si con first o dequeue
+            paquete = self.cola.dequeue() 
             return [paquete.sourse,paquete.destination,paquete.timestamp]
         
-    def in_getcount(self, des, startime, endtime, cont = 0):
+    def in_getcount(self, destino, startime, endtime, cont = 0):
         cola_aux = Queue()
         while not self.cola.is_empty():
             actual = self.cola.dequeue()
             cola_aux.enqueue(actual)
 
-            if (actual.destination == des and  startime <= actual.timestamp  <= endtime):
+            if (actual.destination == destino and  startime <= actual.timestamp  <= endtime):
                 cont += 1
       
         

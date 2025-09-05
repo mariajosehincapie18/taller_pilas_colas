@@ -7,10 +7,10 @@ def pila_de_cola(pila_principal):
     entero = None
 
     while not pila_principal.is_empty():
-        sub_pila = pila_principal.pop()
+        cola = pila_principal.pop()
 
-        while not sub_pila.is_empty():
-            actual = sub_pila.dequeue()
+        while not cola.is_empty():
+            actual = cola.dequeue()
             if actual % 2 == 0:
                 entero = actual
                 enteros.push(entero)
